@@ -1,6 +1,6 @@
 package explorecali.web;
 
-import explorecali.dto.ErrorDto;
+import explorecali.dto.response.ErrorDto;
 import explorecali.exception.TourNotFoundException;
 import explorecali.exception.TourPackageNotFoundException;
 import org.springframework.http.HttpStatus;

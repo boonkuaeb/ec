@@ -1,4 +1,4 @@
-package explorecali.dto;
+package explorecali.dto.response;
 
 
 import lombok.AllArgsConstructor;
