@@ -5,10 +5,11 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.swing.plaf.synth.Region;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Tore {
     @Id
     @GeneratedValue
@@ -24,9 +25,6 @@ public class Tore {
     private String difficulty;
     private Region region;
 
-
     @ManyToOne
     private TorePackage torePackage;
-
-
 }
