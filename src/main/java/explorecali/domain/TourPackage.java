@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TorePackage implements Serializable {
+public class TourPackage implements Serializable {
     @Id
     private String code;
 

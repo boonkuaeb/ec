@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Tore {
+public class Tour {
     @Id
     @GeneratedValue
     private Long id;
@@ -26,5 +26,5 @@ public class Tore {
     private Region region;
 
     @ManyToOne
-    private TorePackage torePackage;
+    private TourPackage tourPackage;
 }
