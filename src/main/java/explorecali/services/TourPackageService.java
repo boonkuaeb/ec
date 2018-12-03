@@ -1,6 +1,7 @@
 package explorecali.services;
 
 import explorecali.domain.TourPackage;
+import explorecali.exception.TourPackageNotFoundException;
 import explorecali.repository.TourPackageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class TourPackageService {
         {
             return tourPackage;
         }
-        throw new RuntimeException("Tore Package does not exits:"+ name);
+        throw new TourPackageNotFoundException("Tore Package does not exits:"+ name);
     }
 
     public Iterable<TourPackage> findAll()

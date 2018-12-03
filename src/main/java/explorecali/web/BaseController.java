@@ -3,6 +3,7 @@ package explorecali.web;
 import explorecali.dto.response.ErrorDto;
 import explorecali.exception.TourNotFoundException;
 import explorecali.exception.TourPackageNotFoundException;
+import explorecali.exception.TourRatingNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -16,9 +17,13 @@ public class BaseController {
         return new ResponseEntity<ErrorDto>(new ErrorDto(e.getMessage(), HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);
     }
 
-
     @ExceptionHandler(TourPackageNotFoundException.class)
     public ResponseEntity<ErrorDto> handleTourPackageNotFoundException(TourPackageNotFoundException e) {
+        return new ResponseEntity<ErrorDto>(new ErrorDto(e.getMessage(), HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(TourRatingNotFoundException.class)
+    public ResponseEntity<ErrorDto> handleTourRatingNotFoundException(TourRatingNotFoundException e) {
         return new ResponseEntity<ErrorDto>(new ErrorDto(e.getMessage(), HttpStatus.NOT_FOUND.value()), HttpStatus.NOT_FOUND);
     }
 }
