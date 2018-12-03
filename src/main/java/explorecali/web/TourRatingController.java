@@ -32,7 +32,7 @@ public class TourRatingController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createTourRating(@PathVariable(value = "tourId") Long tourId, @RequestBody @Validated RatingDto rating) {
         Tour tour = tourService.verify(tourId);
-        tourRatingService.save(tour, rating.getScore(),rating.getComment(),rating.getCustomerId());
+        tourRatingService.save(tour, rating.getScore(), rating.getComment(), rating.getCustomerId());
     }
 
     @GetMapping
@@ -48,7 +48,7 @@ public class TourRatingController {
     public RagingAverateDto getTourAverage(@PathVariable(name = "tourId") Long tourId) {
         Tour tour = tourService.verify(tourId);
         Long avg = tourRatingService.getAverage(tourId);
-        return new RagingAverateDto(avg);
+        return new RagingAverateDto((avg != null) ? avg : 0);
     }
 
     private RatingDto toDto(TourRating rating) {
