@@ -16,10 +16,20 @@ public class TourPackageService {
     }
 
     public TourPackage createTourPackage(String code, String name) {
-        if (tourPackageRepository.existsById(code)) {
+        if (!tourPackageRepository.existsById(code)) {
             tourPackageRepository.save(new TourPackage(code, name));
         }
         return null;
+    }
+
+    public TourPackage findByName(String name)
+    {
+        TourPackage tourPackage =  tourPackageRepository.findByName(name);
+        if (tourPackage != null)
+        {
+            return tourPackage;
+        }
+        throw new RuntimeException("Tore Package does not exits:"+ name);
     }
 
     public Iterable<TourPackage> findAll()
@@ -27,7 +37,7 @@ public class TourPackageService {
         return tourPackageRepository.findAll();
     }
 
-    public Long totalTorePackageRepository()
+    public Long total()
     {
         return tourPackageRepository.count();
     }

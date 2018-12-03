@@ -16,10 +16,13 @@ public class Tour {
     private Long id;
 
     private String title;
+    @Column(length = 2000)
     private String description;
+    @Column(length = 2000)
     private String blurb;
     private Integer price;
     private String duration;
+    @Column(length = 2000)
     private String bullets;
     private String keywords;
     private String difficulty;

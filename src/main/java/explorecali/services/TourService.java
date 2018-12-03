@@ -1,5 +1,6 @@
 package explorecali.services;
 
+import explorecali.domain.Difficulty;
 import explorecali.domain.Region;
 import explorecali.domain.Tour;
 import explorecali.domain.TourPackage;
@@ -23,7 +24,7 @@ public class TourService {
         this.tourPackageRepository = tourPackageRepository;
     }
 
-    public Tour createTore(
+    public Tour createTour(
             String title,
             String description,
             String blurb,
@@ -31,16 +32,14 @@ public class TourService {
             String duration,
             String bullets,
             String keywords,
-            String difficulty,
+            Difficulty difficulty,
             Region region,
-            String tourPackageCode
+            String tourPackageName
     ) {
-        Optional<TourPackage> tourPackageOptional = tourPackageRepository.findById(tourPackageCode);
-        if (!tourPackageOptional.isPresent()) {
-            throw new RuntimeException(("Tour Package does not exists: " + tourPackageCode));
+        TourPackage tourPackage = tourPackageRepository.findByName(tourPackageName);
+        if (tourPackage == null) {
+            throw new RuntimeException(("Tour Package does not exists: " + tourPackageName));
         }
-        TourPackage tourPackage = tourPackageOptional.get();
-
         Tour tour = new Tour();
         tour.setTitle(title);
         tour.setDescription(description);
@@ -49,7 +48,7 @@ public class TourService {
         tour.setDuration(duration);
         tour.setBullets(bullets);
         tour.setKeywords(keywords);
-        tour.setDifficulty(difficulty);
+        tour.setDifficulty(difficulty.toString());
         tour.setRegion(region);
         tour.setTourPackage(tourPackage);
 
@@ -61,8 +60,9 @@ public class TourService {
         return tourRepository.findAll();
     }
 
-    public long Total()
+    public long total()
     {
         return tourRepository.count();
     }
+
 }
