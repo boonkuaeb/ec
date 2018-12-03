@@ -57,23 +57,26 @@ public class TourService {
         return tourRepository.save(tour);
     }
 
-    public Iterable<Tour> findAll()
-    {
+    public Iterable<Tour> findAll() {
         return tourRepository.findAll();
     }
 
-    public long total()
-    {
+    public long total() {
         return tourRepository.count();
     }
 
-    public Tour verify(Long tourId)
-    {
-        Optional<Tour> tour = tourRepository.findById(tourId);
-        if (!tour.isPresent()) {
-            throw new TourNotFoundException("Tour " + tourId + " Not Found");
-        }
-        return tour.get();
+    public Tour verify(Long tourId) {
+
+        Tour tour = tourRepository.findById(tourId).orElseThrow(() ->
+                new TourNotFoundException("Tour " + tourId + " Not Found")
+        );
+//
+//        Optional<Tour> tour = tourRepository.findById(tourId);
+//        if (!tour.isPresent()) {
+//            throw new TourNotFoundException("Tour " + tourId + " Not Found");
+//        }
+
+        return tour;
     }
 
 }

@@ -32,7 +32,6 @@ public class TourRatingController {
         this.tourService = tourService;
     }
 
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public void createTourRating(@PathVariable(value = "tourId") Long tourId, @RequestBody @Validated RatingDto rating) {
@@ -67,7 +66,6 @@ public class TourRatingController {
     public Page<RatingResponseDto> getTourRating(@PathVariable(name = "tourId") Long tourId, Pageable pageable) {
         Tour tour = tourService.verify(tourId);
         Page<TourRating> tourRatingPage = tourRatingService.getRatings(tourId, pageable);
-
 
         List<RatingResponseDto> ratingDtoList = tourRatingPage.getContent()
                 .stream()
