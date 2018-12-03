@@ -8,5 +8,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RagingAverateDto {
-    private Long average;
+    private Double average;
 }

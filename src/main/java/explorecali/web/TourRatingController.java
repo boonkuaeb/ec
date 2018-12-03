@@ -6,11 +6,13 @@ import explorecali.dto.request.RatingDto;
 import explorecali.dto.response.RagingAverateDto;
 import explorecali.services.TourRatingService;
 import explorecali.services.TourService;
+import org.decimal4j.util.DoubleRounder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,8 +49,8 @@ public class TourRatingController {
     @GetMapping(path = "/average")
     public RagingAverateDto getTourAverage(@PathVariable(name = "tourId") Long tourId) {
         Tour tour = tourService.verify(tourId);
-        Long avg = tourRatingService.getAverage(tourId);
-        return new RagingAverateDto((avg != null) ? avg : 0);
+        Double avg = tourRatingService.getAverage(tourId);
+        return new RagingAverateDto((avg != null) ? DoubleRounder.round(avg, 2) : 0);
     }
 
     private RatingDto toDto(TourRating rating) {

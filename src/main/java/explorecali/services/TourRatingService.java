@@ -29,7 +29,7 @@ public class TourRatingService {
         return tourRatingRepository.findByPkTourId(tourId);
     }
 
-    public Long getAverage(Long tourId)
+    public Double getAverage(Long tourId)
     {
         return tourRatingRepository.getAverage(tourId);
 

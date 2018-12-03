@@ -74,11 +74,11 @@ public class ExplorecaliApplication implements CommandLineRunner {
         Tour tour = tourService.verify(new Long(1));
 
         TourRatingPk pk1 = new TourRatingPk(tour,1);
-        tourRatingService.save(tour,3,"comment 1", 1);
+        tourRatingService.save(tour,1,"comment 1", 1);
 
 
         TourRatingPk pk2 = new TourRatingPk(tour,2);
-        tourRatingService.save(tour,4,"comment 2", 2);
+        tourRatingService.save(tour,1,"comment 2", 2);
 
 
         TourRatingPk pk3 = new TourRatingPk(tour,3);

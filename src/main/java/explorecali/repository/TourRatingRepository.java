@@ -15,6 +15,6 @@ public interface TourRatingRepository extends CrudRepository<TourRating, TourRat
 
     TourRating findByPkTourIdAndPkCustomerId(Long tourId, Integer customerId);
 
-    @Query(value = "SELECT AVG (SCORE) from TOUR_RATING where TOUR_ID = ?1", nativeQuery = true)
-    Long getAverage(Long tourId);
+    @Query(value = "SELECT AVG (Cast(SCORE as FLOAT)) from TOUR_RATING where TOUR_ID = ?1", nativeQuery = true)
+    Double getAverage(Long tourId);
 }
