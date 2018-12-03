@@ -4,6 +4,8 @@ import explorecali.domain.Difficulty;
 import explorecali.domain.Region;
 import explorecali.domain.Tour;
 import explorecali.domain.TourPackage;
+import explorecali.exception.TourNotFoundException;
+import explorecali.exception.TourPackageNotFoundException;
 import explorecali.repository.TourPackageRepository;
 import explorecali.repository.TourRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,7 @@ public class TourService {
     ) {
         TourPackage tourPackage = tourPackageRepository.findByName(tourPackageName);
         if (tourPackage == null) {
-            throw new RuntimeException(("Tour Package does not exists: " + tourPackageName));
+            throw new TourPackageNotFoundException(("Tour Package does not exists: " + tourPackageName));
         }
         Tour tour = new Tour();
         tour.setTitle(title);
@@ -63,6 +65,15 @@ public class TourService {
     public long total()
     {
         return tourRepository.count();
+    }
+
+    public Tour verify(Long tourId)
+    {
+        Optional<Tour> tour = tourRepository.findById(tourId);
+        if (!tour.isPresent()) {
+            throw new TourNotFoundException("Tour " + tourId + " Not Found");
+        }
+        return tour.get();
     }
 
 }
