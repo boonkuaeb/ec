@@ -3,6 +3,7 @@ package explorecali.web;
 import explorecali.domain.Tour;
 import explorecali.domain.TourRating;
 import explorecali.dto.request.RatingDto;
+import explorecali.dto.response.RagingAverateDto;
 import explorecali.services.TourRatingService;
 import explorecali.services.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,16 +32,23 @@ public class TourRatingController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createTourRating(@PathVariable(value = "tourId") Long tourId, @RequestBody @Validated RatingDto rating) {
         Tour tour = tourService.verify(tourId);
-        tourRatingService.save(tour, rating);
+        tourRatingService.save(tour, rating.getScore(),rating.getComment(),rating.getCustomerId());
     }
 
     @GetMapping
     public List<RatingDto> getTourRating(@PathVariable(name = "tourId") Long tourId) {
         Tour tour = tourService.verify(tourId);
-        List<TourRating> tourRatings = tourRatingService.getRatings(tourId);
-        return tourRatings.stream()
+        return tourRatingService.getRatings(tourId)
+                .stream()
                 .map(this::toDto)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping(path = "/average")
+    public RagingAverateDto getTourAverage(@PathVariable(name = "tourId") Long tourId) {
+        Tour tour = tourService.verify(tourId);
+        Long avg = tourRatingService.getAverage(tourId);
+        return new RagingAverateDto(avg);
     }
 
     private RatingDto toDto(TourRating rating) {

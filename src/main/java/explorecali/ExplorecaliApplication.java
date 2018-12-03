@@ -5,9 +5,9 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import explorecali.domain.Difficulty;
-import explorecali.domain.Region;
+import explorecali.domain.*;
 import explorecali.services.TourPackageService;
+import explorecali.services.TourRatingService;
 import explorecali.services.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -27,6 +27,9 @@ public class ExplorecaliApplication implements CommandLineRunner {
 
     @Autowired
     private TourService tourService;
+
+    @Autowired
+    private TourRatingService tourRatingService;
 
     public static void main(String[] args) {
         SpringApplication.run(ExplorecaliApplication.class, args);
@@ -68,6 +71,18 @@ public class ExplorecaliApplication implements CommandLineRunner {
         );
         System.out.println("Number of tours =" + tourService.total());
 
+        Tour tour = tourService.verify(new Long(1));
+
+        TourRatingPk pk1 = new TourRatingPk(tour,1);
+        tourRatingService.save(tour,3,"comment 1", 1);
+
+
+        TourRatingPk pk2 = new TourRatingPk(tour,2);
+        tourRatingService.save(tour,4,"comment 2", 2);
+
+
+        TourRatingPk pk3 = new TourRatingPk(tour,3);
+        tourRatingService.save(tour,2,"comment 3", 3);
     }
 
 

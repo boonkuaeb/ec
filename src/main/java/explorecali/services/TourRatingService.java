@@ -4,6 +4,7 @@ import explorecali.domain.Tour;
 import explorecali.domain.TourRating;
 import explorecali.domain.TourRatingPk;
 import explorecali.dto.request.RatingDto;
+import explorecali.dto.response.RagingAverateDto;
 import explorecali.repository.TourRatingRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +19,19 @@ public class TourRatingService {
         this.tourRatingRepository = tourRatingRepository;
     }
 
-    public void save(Tour tour, RatingDto rating) {
-        TourRatingPk tourRatingPk = new TourRatingPk(tour, rating.getCustomerId());
-        TourRating tourRating = new TourRating(tourRatingPk, rating.getScore(), rating.getComment());
+    public void save(Tour tour, Integer score, String comment,Integer customerId) {
+        TourRatingPk tourRatingPk = new TourRatingPk(tour, customerId);
+        TourRating tourRating = new TourRating(tourRatingPk, score, comment);
         tourRatingRepository.save(tourRating);
     }
 
     public List<TourRating> getRatings(Long tourId){
         return tourRatingRepository.findByPkTourId(tourId);
+    }
+
+    public Long getAverage(Long tourId)
+    {
+        return tourRatingRepository.getAverage(tourId);
+
     }
 }
